@@ -1,6 +1,5 @@
 <?php
 include "include.php";
-var_dump($_POST);
 if($_POST['bt']=="con") {
     if ((isset($_POST['login']) && $_POST['login'] != ' ') && (isset($_POST['password']) && $_POST['password'] != ' ')) {
         $user = Users::fromForm();
@@ -21,5 +20,5 @@ if($_POST['bt']=="con") {
         }
     }
 }
-header("Location: " . "../index.php");
+//header("Location: " . "../index.php");
 exit();
