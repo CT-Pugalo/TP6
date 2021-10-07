@@ -11,7 +11,7 @@ class UserModel {
 SQL;
         if($requete=$db->prepare($sql)){
             $requete->bindParam(":login", $login);
-            $requete->bindParam(":pas", $password);
+            $requete->bindParam(":password", $password);
             if($requete->execute()) {
                 if($reponse = $requete->fetch()) {
                     $id=$reponse['IdU'];
@@ -24,7 +24,6 @@ SQL;
     public static function Create(Users $user) : bool {
         $bool = false;
         $db = MyPdo::getInstance();
-        $id = $user->getId();
         $login = $user->getLogin();
         $password = $user->getPassword();
 
@@ -37,6 +36,10 @@ SQL;
             $requete->bindParam(":password", $password);
             if ($requete->execute()) {
                 $bool = true;
+                $requete=$db->query("SELECT LAST_INSERT_ID()");
+                $reponse=$requete->fetch();
+                var_dump($reponse);
+                $user->setId($reponse['LAST_INSERT_ID()']);
             }
 
         }

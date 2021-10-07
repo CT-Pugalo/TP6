@@ -28,5 +28,6 @@ if(!Users::estConnecter()){
     echo $formInscritpion;
 }else{
     echo "vous etes co";
-    echo "<a href='deconnection.php'>se deconnecter</a>";
+    echo "<a href='deconnection.php'>se deconnecter</a><br>";
+
 }

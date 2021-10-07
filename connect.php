@@ -7,7 +7,6 @@ if($_POST['bt']=="con") {
         if ($user->check()) {
             echo "Vous avez reussi!";
             $user->connecter();
-            //header("Location: " . "../index.php");
         } else {
             echo "Vous avez pas reussi...";
         }
@@ -22,3 +21,5 @@ if($_POST['bt']=="con") {
         }
     }
 }
+header("Location: " . "../index.php");
+exit();
