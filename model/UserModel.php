@@ -26,10 +26,8 @@ SQL;
         $db = MyPdo::getInstance();
         $login = $user->getLogin();
         $password = $user->getPassword();
-
-
         $sql = <<<SQL
-            INSERT INTO utilisateurs(Login, MotDePasse) SELECT * FROM ( SELECT :login, :password) as alias
+            INSERT IGNORE INTO utilisateurs(Login, MotDePasse) SELECT * FROM ( SELECT :login, :password) as alias
 SQL;
         if ($requete = $db->prepare($sql)) {
             $requete->bindParam(":login", $login);
