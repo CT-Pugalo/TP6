@@ -1,5 +1,5 @@
 <?php
-
+include "NewModel.php";
 class News {
     private int $id;
     private string $titre;
@@ -32,7 +32,7 @@ class News {
     /**
      * @return string
      */
-    public function getDate(): string {
+    public function getDate() {
         return $this->date;
     }
 
