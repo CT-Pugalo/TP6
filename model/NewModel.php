@@ -11,14 +11,13 @@ class NewModel {
         $date=$news->getDate();
 
         $sql = <<<SQL
-            INSERT INTO news(Titre, Contenu, Date, IdU) VALUES (Titre=:titre, Contenu=:contenu, Date=:Date, IdU=:idu);
+            INSERT INTO news(Titre, Contenu, Date, IdU) VALUES (:titre, :contenu, :Date, (SELECT Idu FROM utilisateurs WHERE IdU=:Id));
 SQL;
         if ($requete = $db->prepare($sql)) {
-            $requete->bindParam(":idn", $id);
             $requete->bindParam(":titre", $titre);
             $requete->bindParam(":contenu", $contenue);
             $requete->bindParam(':Date', $date);
-            $requete->bindParam(":idu", $idU);
+            $requete->bindParam(":Id", $idU);
             if ($requete->execute()) {
                 $bool = true;
             }
@@ -90,27 +89,26 @@ SQL;
 
     public static function fromArray(array $liste): ?News {
         if (count($liste) == 5) {
-            return new News($liste['Idn'], $liste['Titre'], $liste['Contenu'], $liste['Date'], $liste['IdU']);
+            return new News($liste['Titre'], $liste['Contenu'], $liste['Date'], $liste['IdU']);
         } else {
             return null;
         }
     }
 
-    public static function getAllID(): array {
-        $ids = array();
+    public static function getAll(): array {
+        $news = array();
         $bd = MyPDO::getInstance();
         $sql = <<<SQL
-                SELECT Idn FROM news;
+                SELECT * FROM news;
 SQL;
         if ($requete = $bd->prepare($sql)) {
             if ($requete->execute()) {
-                if ($reponse = $requete->fetchAll()) {
-                    foreach ($reponse as $id) {
-                        array_push($ids, $id['Idn']);
-                    }
+                while ($reponse = $requete->fetch()) {
+                    $reponse = NewModel::fromArray($reponse);
+                    array_push($news, $reponse);
                 }
             }
         }
-        return $ids;
+        return $news;
     }
 }

@@ -18,4 +18,5 @@ if (!Users::estConnecter()) {
         Date
         <input name="Date" type="date" placeholder="Titre">
     </label>
+    <button type="submit">Envoyer</button>
 </form>

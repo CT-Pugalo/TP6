@@ -15,19 +15,17 @@ if (!Users::estConnecter()) {
         News
         <div>
             <?php
-            $allID = NewModel::getAllID();
-            $news = array();
-            foreach ($allID as $id) {
-                array_push($news, NewModel::Read($id));
-            }
-            foreach ($news as $new) {
+            $all = NewModel::getAll();
+            foreach ($all as $news) {
                 echo <<<HTML
                 <div>
-                    {$new->getTitre()}
+                ***<br>
+                    {$news->getTitre()}
                 </div>
                 <div>
-                    {$new->getContenu()}
+                    <p>{$news->getContenu()}</p>
                 </div>
+***<br>
 HTML;
             }
             ?>

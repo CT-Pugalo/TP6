@@ -7,12 +7,11 @@ class News {
     private string $date;
     private int $idU;
 
-    public function __construct(int $id, string $titre, string $contenu, string $date, int $idU){
-        $this->id=$id;
-        $this->titre=$titre;
-        $this->contenu=$contenu;
-        $this->date=$date;
-        $this->idU=$idU;
+    public function __construct(string $titre, string $contenu, string $date, int $idU) {
+        $this->titre = $titre;
+        $this->contenu = $contenu;
+        $this->date = $date;
+        $this->idU = $idU;
     }
 
     /**
